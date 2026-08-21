@@ -17,12 +17,11 @@ app = FastAPI(title="FastAPI Template API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000",'https://blog-management-gold.vercel.app'],
+    allow_origins=[frontend_url, "http://localhost:3000", "https://blog-management-gold.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 # Ensure uploads directory exists and mount it for static file serving
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
