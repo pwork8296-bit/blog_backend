@@ -15,13 +15,6 @@ from app.router.upload_router import router as upload_router
 
 app = FastAPI(title="FastAPI Template API", version="1.0.0")
 
-# Ensure uploads directory exists and mount it for static file serving
-UPLOAD_DIR = Path("uploads")
-UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
-app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
-
-api_router = APIRouter(prefix="/api/v1")
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[frontend_url, "http://localhost:3000",'https://blog-management-gold.vercel.app'],
@@ -29,6 +22,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Ensure uploads directory exists and mount it for static file serving
+UPLOAD_DIR = Path("uploads")
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+
+api_router = APIRouter(prefix="/api/v1")
+
 
 api_router.include_router(auth_router)
 api_router.include_router(user_router)
